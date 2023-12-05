@@ -1,0 +1,23 @@
+trigger:
+- master
+
+pr:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    displayName: 'Deploy Job'
+
+    steps:
+    - task: AzureFunctionApp@1
+      inputs:
+        azureSubscription: 'Roy Gebrayel(189af0e7-fa98-4751-b5a8-0d39f4d49d5f)'
+        appType: 'functionAppLinux'
+        appName: 'functionnodeapp'  # Change the app name to 'functionNodeApp'
+        package: 
+        runtimeStack: 'NODE|14'  # Change the runtime stack to Node.js 14 (adjust version as needed)

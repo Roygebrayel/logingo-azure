@@ -1,0 +1,37 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  SERVICE_PRINCIPAL_ID: '14581ffd-6ddc-44de-90f3-e3afc4569daa'
+  SERVICE_PRINCIPAL_KEY: '54cae9d3-42b7-4f90-8a31-73384f5329ec'
+  TENANT_ID: 'e731378a-11b1-405c-bb1c-c047ae5a5d54'
+  SUBSCRIPTION_ID: '189af0e7-fa98-4751-b5a8-0d39f4d49d5f'
+  RESOURCE_GROUP: 'roygebrayel-RG'
+  WEBAPP_NAME: 'logingo'
+
+steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.x'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: ls $(Build.SourcesDirectory)  # Use this command to list the contents of the source directory
+  displayName: 'List Contents of Source Directory'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Roy Gebrayel(189af0e7-fa98-4751-b5a8-0d39f4d49d5f)'
+    scriptType: 'bash'
+    scriptLocation: 'scriptPath'
+    scriptPath: '$(Build.SourcesDirectory)/resources.sh'
+  env:
+    SERVICE_PRINCIPAL_ID: $(SERVICE_PRINCIPAL_ID)
+    SERVICE_PRINCIPAL_KEY: $(SERVICE_PRINCIPAL_KEY)
+    TENANT_ID: $(TENANT_ID)
+    SUBSCRIPTION_ID: $(SUBSCRIPTION_ID)
+    RESOURCE_GROUP: $(RESOURCE_GROUP)
+    WEBAPP_NAME: $(WEBAPP_NAME)

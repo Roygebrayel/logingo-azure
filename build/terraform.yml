@@ -1,0 +1,23 @@
+# trigger:
+# - master  # Adjust the branch trigger as needed
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use an appropriate image based on your requirements
+
+stages:
+- stage: TerraformApply
+  jobs:
+  - job: ApplyTerraform
+    displayName: 'Apply Terraform'
+    steps:
+    - task: UseTerraform@2
+      inputs:
+        terraformVersion: 'latest'
+        workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+    - checkout: self
+    - script: |
+        echo "Initializing Terraform"
+        terraform init -input=false -backend-config=backend.tfvars
+        echo "Applying Terraform changes"
+        terraform apply -auto-approve
+      displayName: 'Terraform Apply'

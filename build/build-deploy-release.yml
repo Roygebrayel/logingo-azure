@@ -1,0 +1,77 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'f0721b2f-90c1-4a6e-ae5f-0feaa0911f76'
+  imageRepository: 'login'
+  containerRegistry: 'goprojects.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
+  tag: '$(Build.BuildId)'
+  # webAppName: 'your-web-app-name'  # replace with your Azure Web App name
+  # slotName: 'production'  # replace with the deployment slot name if applicable
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      name: 'roy-server'  # change to your agent pool
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tag)
+
+- stage: Deploy
+  displayName: Deploy to Azure Web App
+  dependsOn: Build
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      name : 'roy-server'
+      # vmImage: 'roy-vm'  # change to your agent pool
+    steps:
+    - task: AzureRmWebAppDeployment@4
+      displayName: 'Azure Web App Deploy'
+      inputs:
+        ConnectionType: 'AzureRM'
+        azureSubscription: 'Roy Gebrayel(4)(189af0e7-fa98-4751-b5a8-0d39f4d49d5f)'
+        appType: 'webAppContainer'
+        WebAppName: 'logingo'
+        DockerNamespace: '$(containerRegistry)'
+        DockerRepository: '$(imageRepository)'
+        DockerImageTag: '$(tag)'
+- stage: Release
+  displayName: Release
+  dependsOn: Deploy
+  jobs:
+  - job: Release
+    displayName: Release
+    pool:
+      name : 'roy-server'
+
+    steps:
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'drop'
+    - task: PublishPipelineArtifact@1
+      inputs:
+        targetPath: '$(Build.ArtifactStagingDirectory)' 
+        artifactName: 'drop' 

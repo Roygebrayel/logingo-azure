@@ -1,0 +1,24 @@
+trigger:
+- '*'
+
+pr:
+- '*'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+jobs:
+- job: RunTests
+  displayName: 'Run Tests'
+  steps:
+  - checkout: self
+
+  - script: |
+      sudo apt-get install -y golang-go
+      go version
+      go get -v -t -d ./test
+    displayName: 'Install Go and Dependencies'
+
+  - script: |
+      go test ./test -v
+    displayName: 'Run Go Tests'
