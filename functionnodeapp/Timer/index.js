@@ -1,6 +1,6 @@
-module.exports = async function (context, myTimer) {
+module.exports = async function (context, Timer) {
   // Validate timer object
-  if (myTimer.isPastDue) {
+  if (Timer.isPastDue) {
     context.log("Timer function ran late!");
   }
 
