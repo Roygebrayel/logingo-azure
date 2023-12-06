@@ -167,7 +167,7 @@ func CallingApi(w http.ResponseWriter, r *http.Request) {
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// Make a GET request to the API
-	apiURL := "https://functionnodeapp.azurewebsites.net/api/users?code=WJ2V2g7eVOzWUG947P5akETGWxY1-5KTUFg7mgWTeAduAzFuXcokdQ=="
+	apiURL := "https://functionnodeapp.azurewebsites.net/api/GetRequest?code=WJ2V2g7eVOzWUG947P5akETGWxY1-5KTUFg7mgWTeAduAzFuXcokdQ=="
 	resp, err := http.Get(apiURL)
 	if err != nil {
 		http.Error(w, "Error fetching data from API: "+err.Error(), http.StatusInternalServerError)
