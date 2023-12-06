@@ -1,25 +1,14 @@
 module.exports = async function (context, myTimer) {
+  // Validate timer object
   if (myTimer.isPastDue) {
-    context.log("JavaScript is running late!");
+    context.log("Timer function ran late!");
   }
 
-  context.log("Hello, I'm the trigger!");
+  // Log a message to the console
+  context.log("Timer trigger function ran!", new Date().toISOString());
 
-  // Display the HTML message
-  context.res = {
-    headers: {
-      "Content-Type": "text/html",
-    },
-    body: "<html><body><h1>Hello, I'm the trigger!</h1></body></html>",
-  };
+  // Replace the log statement with your custom logic
 
-  // Set a timeout to clear the message after 5 seconds
-  setTimeout(() => {
-    context.res = {
-      status: 204,
-      body: "",
-    };
-    context.log("Message cleared.");
-    context.done();
-  }, 5000);
+  // Complete the function execution
+  context.done();
 };
