@@ -13,7 +13,7 @@ func
 
 func init </br>
 
-func new --name CredentialPosting --template "HTTP trigger" </br>
+func new --name CredentialsPosting --template "HTTP trigger" </br>
 
 func new --name GetRequest --template "HTTP trigger" </br>
 
