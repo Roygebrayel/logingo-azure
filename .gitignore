@@ -11,3 +11,5 @@ __blobstorage__
 __queuestorage__
 __azurite_db*__.json
 login
+functionnodeapp/node_modules
+functionnodeapp/package-lock.json
