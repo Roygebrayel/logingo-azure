@@ -7,9 +7,9 @@ cd Downloads/azure-functions-cli/ </br>
 
 ./func </br>
 
-export PATH=`pwd`:$PATH</br>
 
-func </br>
+`export PATH=`pwd`:$PATH` </br>
+func
 
 func init </br>
 
