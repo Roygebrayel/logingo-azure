@@ -3,17 +3,21 @@ TODO: Give a short introduction of your project. Let this section explain the ob
 
 # Function App
 
-export PATH=`pwd`:$PATH </br>
+cd Downloads/azure-functions-cli/ </br>
+
+./func </br>
+
+export PATH=`pwd`:$PATH</br>
 
 func </br>
 
 func init </br>
 
-func new Trigger CredentialsPosting --template "http trigger" </br>
+func new --name CredentialPosting --template "HTTP trigger" </br>
 
-func new Trigger GetRequest --template "http trigger" </br>
+func new --name GetRequest --template "HTTP trigger" </br>
 
-func new Trigger Timer --template "TimerTrigger" </br>
+func new --name Timer --template "TimerTrigger" </br>
 
 func start </br>
 
