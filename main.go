@@ -139,7 +139,7 @@ func CallingApi(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Replace the URL with your actual API endpoint
-	apiURL := "https://functionnodeapp.azurewebsites.net/api/CredentialsPosting?code=eFgyr-e-pJWmDNUoWnRGo8e7B1IZwvISO4kx0cGGM1PTAzFuvNq7vg=="
+	apiURL := "https://functionnodeappp.azurewebsites.net/api/CredentialsPosting?code=t-i5WYKe8O5cYIrWwH4b-6E1b6O_VwmcZVHy2V3RqurcAzFu79QDVA=="
 
 	// Send a POST request to the API endpoint with the JSON payload
 	resp, err := client.Post(apiURL, "application/json", bytes.NewBuffer(payload))
@@ -167,7 +167,7 @@ func CallingApi(w http.ResponseWriter, r *http.Request) {
 
 func GetUsersHandler(w http.ResponseWriter, r *http.Request) {
 	// Make a GET request to the API
-	apiURL := "https://functionnodeapp.azurewebsites.net/api/GetRequest?code=WJ2V2g7eVOzWUG947P5akETGWxY1-5KTUFg7mgWTeAduAzFuXcokdQ=="
+	apiURL := "https://functionnodeappp.azurewebsites.net/api/GetRequest?code=WRH5BeKMYyDY_rJkWlhIoqtO_4bszOcqFizpP1fPp9DiAzFuBVbx2A=="
 	resp, err := http.Get(apiURL)
 	if err != nil {
 		http.Error(w, "Error fetching data from API: "+err.Error(), http.StatusInternalServerError)
